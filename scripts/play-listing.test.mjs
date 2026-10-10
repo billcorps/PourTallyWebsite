@@ -5,14 +5,37 @@ import { verifyPublicPlayListing } from "./play-listing.mjs";
 const url =
   "https://play.google.com/store/apps/details?id=com.billcorp.bartally";
 
-test("publishing accepts a reachable BarTally listing and bounds the request", async () => {
+test("publishing accepts a reachable PourTally listing and bounds the request", async () => {
   await verifyPublicPlayListing(url, async (requested, options) => {
     assert.equal(requested, url);
     assert(options.signal instanceof AbortSignal);
     return new Response(
-      "<title>BarTally - Apps on Google Play</title>com.billcorp.bartally",
+      "<title>PourTally - Apps on Google Play</title>com.billcorp.bartally",
     );
   });
+});
+
+test("publishing accepts the legacy store name while its display name is updated", async () => {
+  await verifyPublicPlayListing(
+    url,
+    async () =>
+      new Response(
+        "<title>BarTally - Apps on Google Play</title>com.billcorp.bartally",
+      ),
+  );
+});
+
+test("publishing rejects the new display name on a different app package", async () => {
+  await assert.rejects(
+    verifyPublicPlayListing(
+      url,
+      async () =>
+        new Response(
+          "<title>PourTally - Apps on Google Play</title>com.example.other",
+        ),
+    ),
+    /did not identify/,
+  );
 });
 
 for (const status of [404, 429, 503]) {

@@ -2,44 +2,37 @@ export const pages = [
   {
     id: "home",
     path: "/",
-    title: "BarTally — Track your drinks and spending",
+    title: "PourTally — Track your drinks and spending",
     description:
-      "Track drinks, calories, alcohol, and spending with BarTally for Android. See how much you drink, what you spend, and when it adds up. All features free.",
+      "Track drinks, calories, alcohol, and spending with PourTally for Android. See how much you drink, what you spend, and when it adds up. All features free.",
   },
   {
     id: "app",
     path: "/app/",
-    title: "Meet the app — BarTally",
+    title: "Meet the app — PourTally",
     description:
       "Search 8,200+ drinks offline. Save servings, places, and prices. Log one or several drinks now or earlier, track spending, use widgets, and export JSON backups.",
   },
   {
     id: "insights",
     path: "/insights/",
-    title: "Drinks, costs, and habits — BarTally insights",
+    title: "Drinks, costs, and habits — PourTally insights",
     description:
       "Track drinks and spending by calendar day, week, or month. Compare habits, nutrition, and places, with missing details and separate currencies clearly shown.",
   },
   {
-    id: "beta",
-    path: "/beta/",
-    title: "Join the Android beta — BarTally",
-    description:
-      "Help test BarTally for Android. Join the tester group, opt into the closed test, and install the app. Free to test, with honest feedback over 14 days.",
-  },
-  {
     id: "privacy",
     path: "/privacy/",
-    title: "Privacy policy — BarTally",
+    title: "Privacy policy — PourTally",
     description:
-      "How BarTally handles your drink history, recorded prices, optional saved places, Google services, purchases, widgets, JSON backups, support email, and this website.",
+      "How PourTally handles your drink history, recorded prices, optional saved places, Google services, purchases, widgets, JSON backups, support email, and this website.",
   },
   {
     id: "not-found",
     path: "/404.html",
-    title: "Page not found — BarTally",
+    title: "Page not found — PourTally",
     description:
-      "This page could not be found. Open the BarTally home page to continue.",
+      "This page could not be found. Open the PourTally home page to continue.",
   },
 ] as const;
 

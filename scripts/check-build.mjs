@@ -6,18 +6,19 @@ const root = resolve("dist");
 const report = JSON.parse(
   await readFile(resolve(root, "site-build.json"), "utf8"),
 );
-const expectedPaths = [
-  "/",
-  "/app/",
-  "/insights/",
-  "/beta/",
-  "/privacy/",
-  "/404.html",
-];
+const expectedPaths = ["/", "/app/", "/insights/", "/privacy/", "/404.html"];
 assert.deepEqual(
   report.pages.map((page) => page.path).sort(),
   expectedPaths.sort(),
   "All pages, including the real 404 document, must be generated.",
+);
+await assert.rejects(access(resolve(root, "beta/index.html")), {
+  code: "ENOENT",
+});
+assert.doesNotMatch(
+  await readFile(resolve(root, "sitemap.xml"), "utf8"),
+  /\/beta\//,
+  "The retired enrollment page must not appear in the sitemap.",
 );
 
 function outputPath(pathname) {

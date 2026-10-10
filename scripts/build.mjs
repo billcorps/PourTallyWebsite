@@ -32,7 +32,7 @@ for (const page of pages) {
     `<link rel="canonical" href="${escapeHtml(canonical)}">`,
     `<meta name="robots" content="${noindex ? "noindex, follow" : "index, follow"}">`,
     '<meta property="og:type" content="website">',
-    '<meta property="og:site_name" content="BarTally">',
+    '<meta property="og:site_name" content="PourTally">',
     '<meta property="og:locale" content="en_US">',
     `<meta property="og:title" content="${escapeHtml(page.title)}">`,
     `<meta property="og:description" content="${escapeHtml(page.description)}">`,
@@ -44,7 +44,7 @@ for (const page of pages) {
   if (config.socialImage)
     metadata.push(
       `<meta property="og:image" content="${escapeHtml(config.socialImage)}">`,
-      '<meta property="og:image:alt" content="BarTally drink tracking for Android">',
+      '<meta property="og:image:alt" content="PourTally drink tracking for Android">',
       `<meta name="twitter:image" content="${escapeHtml(config.socialImage)}">`,
     );
   const html = template

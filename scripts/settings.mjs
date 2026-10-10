@@ -3,9 +3,9 @@ import defaults from "../site-defaults.json" with { type: "json" };
 
 export function settings() {
   const env = { ...loadEnv("production", process.cwd(), ""), ...process.env };
-  const base = env.VITE_BASE_PATH || "/BarTallyWebsite/";
+  const base = env.VITE_BASE_PATH || "/PourTallyWebsite/";
   const origin =
-    env.VITE_SITE_URL || "https://billcorps.github.io/BarTallyWebsite/";
+    env.VITE_SITE_URL || "https://billcorps.github.io/PourTallyWebsite/";
   const url = new URL(origin.endsWith("/") ? origin : `${origin}/`);
   if (
     url.protocol !== "https:" ||
@@ -37,7 +37,8 @@ export function settings() {
   if (socialImage && new URL(socialImage).protocol !== "https:") {
     throw new Error("VITE_SOCIAL_IMAGE must be a public HTTPS URL.");
   }
-  const playUrl = (env.VITE_PLAY_STORE_URL || "").trim();
+  const playUrl =
+    (env.VITE_PLAY_STORE_URL || "").trim() || defaults.playStoreUrl;
   if (playUrl) {
     const parsed = new URL(playUrl);
     if (

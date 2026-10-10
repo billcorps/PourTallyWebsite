@@ -3,23 +3,26 @@ import { test as base, expect, type Page } from '@playwright/test';
 
 // Every interaction test also guards hydration errors and unexpected third-party requests.
 const test = base.extend<{ browserIssues: void }>({
-  browserIssues: [async ({ page, baseURL }, use) => {
-    const errors: string[] = [];
-    const externalRequests: string[] = [];
-    page.on('pageerror', error => errors.push(error.message));
-    page.on('console', message => {
-      if (message.type() === 'error') errors.push(message.text());
-    });
-    page.on('request', request => {
-      const url = new URL(request.url());
-      if (url.protocol.startsWith('http') && url.origin !== siteURL(baseURL).origin) {
-        externalRequests.push(request.url());
-      }
-    });
-    await use();
-    expect(errors, 'There should be no JavaScript, hydration, or resource console errors.').toEqual([]);
-    expect(externalRequests, 'Fonts, scripts, and images must be hosted with the website.').toEqual([]);
-  }, { auto: true }],
+  browserIssues: [
+    async ({ page, baseURL }, use) => {
+      const errors: string[] = [];
+      const externalRequests: string[] = [];
+      page.on('pageerror', (error) => errors.push(error.message));
+      page.on('console', (message) => {
+        if (message.type() === 'error') errors.push(message.text());
+      });
+      page.on('request', (request) => {
+        const url = new URL(request.url());
+        if (url.protocol.startsWith('http') && url.origin !== siteURL(baseURL).origin) {
+          externalRequests.push(request.url());
+        }
+      });
+      await use();
+      expect(errors, 'There should be no JavaScript, hydration, or resource console errors.').toEqual([]);
+      expect(externalRequests, 'Fonts, scripts, and images must be hosted with the website.').toEqual([]);
+    },
+    { auto: true },
+  ],
 });
 
 function siteURL(baseURL: string | undefined, path = './') {
@@ -32,10 +35,9 @@ function imagePath(baseURL: string | undefined, image: string) {
 }
 
 const routes = [
-  { path: './', heading: /Your drinks\.\s*Your tab\.\s*Tracked\./, title: /BarTally/ },
+  { path: './', heading: /Your drinks\.\s*Your tab\.\s*Tracked\./, title: /PourTally/ },
   { path: 'app/', heading: /Log what you drink\./, title: /Meet the app/ },
-  { path: 'insights/', heading: /The drinks\.\s*The costs\.\s*The patterns\./, title: /BarTally insights/ },
-  { path: 'beta/', heading: /Help get BarTally ready\./, title: /BarTally/ },
+  { path: 'insights/', heading: /The drinks\.\s*The costs\.\s*The patterns\./, title: /PourTally insights/ },
   { path: 'privacy/', heading: /Privacy policy\./, title: /Privacy policy/ },
 ];
 
@@ -62,11 +64,15 @@ for (const route of routes) {
     // Load lazy screenshots too, rather than checking only the initial viewport.
     for (const image of await page.locator('img').all()) {
       await image.scrollIntoViewIfNeeded();
-      await expect.poll(() => image.evaluate(element => {
-        const image = element as HTMLImageElement;
-        return image.complete && image.naturalWidth > 0;
-      })).toBe(true);
-      if (await image.getAttribute('aria-hidden') === 'true') {
+      await expect
+        .poll(() =>
+          image.evaluate((element) => {
+            const image = element as HTMLImageElement;
+            return image.complete && image.naturalWidth > 0;
+          }),
+        )
+        .toBe(true);
+      if ((await image.getAttribute('aria-hidden')) === 'true') {
         expect(await image.getAttribute('alt')).toBe('');
       } else {
         expect(await image.getAttribute('alt')).toBeTruthy();
@@ -83,8 +89,8 @@ for (const route of routes) {
   test(`${route.path} has no serious or critical accessibility violations`, async ({ page }) => {
     await page.goto(route.path);
     const results = await new AxeBuilder({ page }).analyze();
-    const blocking = results.violations.filter(violation => ['serious', 'critical'].includes(violation.impact ?? ''));
-    expect(blocking.map(({ id, description, nodes }) => ({ id, description, targets: nodes.map(node => node.target) }))).toEqual([]);
+    const blocking = results.violations.filter((violation) => ['serious', 'critical'].includes(violation.impact ?? ''));
+    expect(blocking.map(({ id, description, nodes }) => ({ id, description, targets: nodes.map((node) => node.target) }))).toEqual([]);
   });
 }
 
@@ -105,7 +111,7 @@ test('main navigation reaches all pages and indicates the current page', async (
     const close = page.getByRole('button', { name: 'Close navigation' });
     if (await close.isVisible()) await close.click();
   }
-  await page.locator('.site-header').getByRole('link', { name: 'BarTally home' }).click();
+  await page.locator('.site-header').getByRole('link', { name: 'PourTally home' }).click();
   await expect(page).toHaveURL(siteURL(baseURL).href);
 });
 
@@ -190,7 +196,7 @@ test('insight controls update drink counts, recorded costs, price coverage, and 
 
 test('FAQ opens and closes by keyboard and widget illustration has no fake button', async ({ page }) => {
   await page.goto('app/#questions');
-  const question = page.locator('details').filter({ has: page.locator('summary', { hasText: 'Is BarTally free?' }) });
+  const question = page.locator('details').filter({ has: page.locator('summary', { hasText: 'Is PourTally free?' }) });
   const answer = question.locator('p');
   await expect(answer).toBeHidden();
   await question.locator('summary').focus();
@@ -233,80 +239,46 @@ test('privacy contents links reach every section and explain bug reports and pri
   if (await note.count()) {
     await expect(note).toContainText('a private contact route will be available before the app launches');
     await expect(contact).toContainText('A private contact route for privacy questions is not available yet.');
-    await expect(contact).toContainText('During the closed test');
   } else if (await contact.locator('a[href^="mailto:"]').count()) {
     await expect(contact.locator('a[href^="mailto:"]')).toBeVisible();
   } else {
-    await expect(contact.getByRole('link', { name: 'BarTally listing', exact: true })).toHaveAttribute('href', /^https:\/\/play\.google\.com\/store\/apps\/details\?[^#]*\bid=com\.billcorp\.bartally(?:&|$)/);
+    await expect(contact.getByRole('link', { name: 'PourTally listing', exact: true })).toHaveAttribute(
+      'href',
+      /^https:\/\/play\.google\.com\/store\/apps\/details\?[^#]*\bid=com\.billcorp\.bartally(?:&|$)/,
+    );
     await expect(contact).toContainText('App support');
     await expect(contact).toContainText('Please use that private contact route for personal information.');
   }
 
-  const hasPublicListing = await contact.getByRole('link', { name: 'BarTally on Google Play', exact: true }).count() > 0;
-  if (!hasPublicListing) {
-    await expect(contact).toContainText('send private testing feedback');
-    await expect(contact).toContainText('After the public release, reviews will be available');
-  }
-  const hasSupportEmail = await contact.locator('a[href^="mailto:"]').count() > 0;
+  await expect(contact.getByRole('link', { name: 'PourTally on Google Play', exact: true })).toHaveAttribute(
+    'href',
+    /^https:\/\/play\.google\.com\/store\/apps\/details\?[^#]*\bid=com\.billcorp\.bartally(?:&|$)/,
+  );
   await page.goto('./');
   const bugReport = page.getByRole('contentinfo').getByRole('link', { name: 'Report a bug', exact: true });
-  const feedbackPath = hasSupportEmail || hasPublicListing ? 'privacy/#privacy-contact' : 'beta/#feedback';
-  const feedbackURL = siteURL(baseURL, feedbackPath);
-  await expect(bugReport).toHaveAttribute('href', `${feedbackURL.pathname}${feedbackURL.hash}`);
+  const feedbackURL = siteURL(baseURL, 'privacy/#privacy-contact');
+  await expect(bugReport).toHaveAttribute('href', feedbackURL.pathname + feedbackURL.hash);
   await bugReport.click();
   await expect(page).toHaveURL(feedbackURL.href);
-  const feedback = page.locator(feedbackURL.hash);
-  await expect(feedback.getByRole('heading', { level: 2 })).toBeInViewport();
-  if (!hasPublicListing && !hasSupportEmail) {
-    await expect(feedback).toContainText('private feedback option for testers');
-    await expect(feedback).toContainText('Leave personal details and real drink history out of group posts');
-  }
+  await expect(page.locator(feedbackURL.hash).getByRole('heading', { level: 2 })).toBeInViewport();
 });
 
-test('pre-launch calls to action explain beta enrollment before opening the store', async ({ page, baseURL }) => {
-  await page.goto('./');
-  const hero = page.locator('.hero-copy');
-  const publicStoreLink = hero.locator('a[href^="https://play.google.com/store/apps/details"]');
-  if (await publicStoreLink.count()) {
-    await expect(publicStoreLink.first()).toHaveAttribute('href', /id=com\.billcorp\.bartally(?:&|$)/);
-    return;
+test('download links lead directly to Google Play across the site', async ({ page }) => {
+  for (const route of routes) {
+    await page.goto(route.path);
+    await openNavigation(page);
+    const navLink = page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'Get PourTally', exact: true });
+    await expect(navLink).toBeVisible();
+    await expect(navLink).toHaveAttribute('href', /^https:\/\/play\.google\.com\/store\/apps\/details\?[^#]*\bid=com\.billcorp\.bartally(?:&|$)/);
+    const storeUrl = await navLink.getAttribute('href');
+    const footerLink = page.getByRole('contentinfo').getByRole('link', { name: 'Get it on Google Play', exact: true });
+    await expect(footerLink).toHaveAttribute('href', storeUrl!);
+    for (const link of await page.locator('.hero-actions a, .closing-actions a').all()) {
+      await expect(link).toHaveAttribute('href', storeUrl!);
+    }
+    await expect(page.locator('a[href*="/beta/"], a[href*="groups.google.com"], a[href*="/apps/testing/"]')).toHaveCount(0);
+    await expect(page.getByRole('main')).not.toContainText(/Join the beta|Android beta|closed test|tester group/i);
   }
-  await expect(hero.locator('a[href^="https://play.google.com/"]')).toHaveCount(0);
-  const heroBetaLink = hero.getByRole('link', { name: 'Join the beta', exact: true });
-  await expect(heroBetaLink).toHaveAttribute('href', siteURL(baseURL, 'beta/').pathname);
-  await openNavigation(page);
-  const navBetaLink = page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'Join the beta', exact: true });
-  await navBetaLink.click();
-  await expect(page).toHaveURL(siteURL(baseURL, 'beta/').href);
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText(/Help get BarTally ready\./);
-  await openNavigation(page);
-  await expect(navBetaLink).toHaveAttribute('aria-current', 'page');
-  await expect(page.getByRole('contentinfo').getByRole('link', { name: 'Join the beta', exact: true })).toHaveAttribute('href', siteURL(baseURL, 'beta/').pathname);
-});
-
-test('beta enrollment links follow group, opt-in, and install order with account guidance', async ({ page }) => {
-  await page.goto('beta/');
-  const main = page.getByRole('main');
-  const actions = [
-    ['Join the Google Group', 'https://groups.google.com/g/bartallytesters'],
-    ['Join the closed test', 'https://play.google.com/apps/testing/com.billcorp.bartally'],
-    ['Install BarTally', 'https://play.google.com/store/apps/details?id=com.billcorp.bartally'],
-  ] as const;
-  for (const [name, url] of actions) {
-    const link = main.getByRole('link', { name, exact: true });
-    await expect(link).toHaveAttribute('href', url);
-    await expect(link).toHaveAttribute('target', '_blank');
-    await expect(link).toHaveAttribute('rel', /noopener/);
-    await expect(link).toHaveAttribute('rel', /noreferrer/);
-  }
-  const expectedUrls = actions.map(([, url]) => url);
-  const order = await main.getByRole('link').evaluateAll((links, expected) => links
-    .map(link => link.getAttribute('href'))
-    .filter(url => expected.includes(url ?? '')), expectedUrls);
-  expect(order).toEqual(expectedUrls);
-  await expect(main).toContainText('same Google account');
-  await expect(main).toContainText('14 consecutive days');
-  await expect(main).toContainText('Android 11');
 });
 
 test('the static 404 document keeps its own content and route after refresh', async ({ page, baseURL }) => {
@@ -316,7 +288,7 @@ test('the static 404 document keeps its own content and route after refresh', as
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow');
   await page.reload();
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(/Page not found\./);
-  await page.getByRole('link', { name: 'Back to BarTally', exact: true }).click();
+  await page.getByRole('link', { name: 'Back to PourTally', exact: true }).click();
   await expect(page).toHaveURL(siteURL(baseURL).href);
 });
 
@@ -331,15 +303,19 @@ test('all pages fit 320, 390, 768, 1024, and 1440 pixel viewports without horizo
         return {
           viewport,
           content: document.documentElement.scrollWidth,
-          outside: Array.from(document.querySelectorAll('main *')).flatMap(element => {
-            const rect = element.getBoundingClientRect();
-            return rect.right > viewport + 1 || rect.left < -1
-              ? [`${element.tagName.toLowerCase()}.${element.getAttribute('class') ?? ''}: ${Math.round(rect.left)}..${Math.round(rect.right)}`]
-              : [];
-          }).slice(0, 20),
+          outside: Array.from(document.querySelectorAll('main *'))
+            .flatMap((element) => {
+              const rect = element.getBoundingClientRect();
+              return rect.right > viewport + 1 || rect.left < -1
+                ? [`${element.tagName.toLowerCase()}.${element.getAttribute('class') ?? ''}: ${Math.round(rect.left)}..${Math.round(rect.right)}`]
+                : [];
+            })
+            .slice(0, 20),
         };
       });
-      expect.soft(dimensions.content, `${route.path} overflows at ${width}px; outside bounds: ${dimensions.outside.join(', ')}`).toBeLessThanOrEqual(dimensions.viewport + 1);
+      expect
+        .soft(dimensions.content, `${route.path} overflows at ${width}px; outside bounds: ${dimensions.outside.join(', ')}`)
+        .toBeLessThanOrEqual(dimensions.viewport + 1);
     }
   }
 });
@@ -348,7 +324,12 @@ test('reduced motion disables smooth scrolling and decorative transitions', asyn
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('insights/');
   expect(await page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior)).toBe('auto');
-  expect(await page.locator('.chart-bar').first().evaluate(element => getComputedStyle(element).transitionDuration)).toBe('0s');
+  expect(
+    await page
+      .locator('.chart-bar')
+      .first()
+      .evaluate((element) => getComputedStyle(element).transitionDuration),
+  ).toBe('0s');
 });
 
 test.describe('prerendered content without JavaScript', () => {
@@ -365,7 +346,7 @@ test.describe('prerendered content without JavaScript', () => {
     }
     await page.getByRole('contentinfo').getByRole('link', { name: 'Meet the app' }).click();
     await expect(page).toHaveURL(siteURL(baseURL, 'app/').href);
-    const details = page.locator('details').filter({ has: page.locator('summary', { hasText: 'Is BarTally free?' }) });
+    const details = page.locator('details').filter({ has: page.locator('summary', { hasText: 'Is PourTally free?' }) });
     await details.locator('summary').click();
     await expect(details.locator('p')).toBeVisible();
     await page.getByRole('contentinfo').getByRole('link', { name: 'Privacy policy', exact: true }).click();

@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 import { loadEnv } from 'vite';
 
-const basePath = process.env.VITE_BASE_PATH || loadEnv('production', process.cwd(), '').VITE_BASE_PATH || '/BarTallyWebsite/';
+const basePath = process.env.VITE_BASE_PATH || loadEnv('production', process.cwd(), '').VITE_BASE_PATH || '/PourTallyWebsite/';
 const baseURL = `http://127.0.0.1:4173${basePath}`;
 
 export default defineConfig({

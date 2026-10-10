@@ -1,5 +1,35 @@
 # Website verification
 
+## Public release and URL migration — October 10, 2026
+
+The website now defaults to https://billcorps.github.io/PourTallyWebsite/. Download actions open the public Google Play listing directly. The beta enrollment component, route, styles, configuration, and sitemap entry have been removed; privacy and feedback copy now describe the public release.
+
+Local checks before publication:
+
+- Formatting, TypeScript, and the production build passed at the new base path: five prerendered documents and 141 local links/assets.
+- All eight Play-listing verification tests and all 38 desktop/mobile browser checks passed.
+- The live public Play listing check passed with network access.
+- The parent BillCorps site was checked at 390px and 1440px. Its PourTally link points to the new address. Five redirects preserve the old home, app, insights, privacy, and beta links, including query strings and section anchors. The old beta URL leads to the new home page.
+- The parent build preserves all public files, including app-ads.txt and Planet Removal, byte for byte.
+
+The older reports below describe their historical state and are not current deployment instructions.
+
+## PourTally rename — October 6, 2026
+
+The current website uses PourTally throughout its navigation, page copy, accessibility labels, page titles, sharing metadata, FAQs, and privacy policy. The policy now states that PourTally is the new name for BarTally and that the name change does not change data handling. Existing package IDs, repository paths, tester links, support email, and ad-seller authorization are retained.
+
+- Formatting and TypeScript checks passed.
+- The final production build passed: six prerendered pages and 179 local links/assets.
+- All eight publishing-check tests passed, including the new name, the legacy Play title during rollout, and rejection of a different app package.
+- All 44 desktop/mobile browser checks passed, including navigation, accessibility, regional galleries, privacy links, JavaScript-disabled rendering, and layouts down to 320 pixels.
+- After regenerated icon/favicon/social assets were copied, all 12 page-loading and gallery checks passed again against the rebuilt bundle. Page titles, sharing metadata, and the favicon title were also checked in the final build.
+- The desktop home page, 320-pixel mobile home page, and mobile beta page were visually checked with the new wordmark; the longer name fits without clipping.
+- The first Windows browser run needed its own preview process stopped after the tests to finish cleanup. The final asset checks used an explicitly managed hidden preview process and exited normally.
+
+No commit, deployment, or live Play Console change was performed. The older screenshots and September verification below are historical records, may show the former name, and are not published website assets.
+
+## Historical verification — September 14, 2026
+
 Verified locally September 14, 2026 against the current BarTally app, refreshed English US and international metric promotional sets, and the new closed-test enrollment page. These checks cover the production preview at `/BarTallyWebsite/`.
 
 ## Current content
@@ -29,17 +59,17 @@ App screenshots use fictional history and places. Browser checks do not enroll a
 
 All five content pages were captured at 1440px and 390px after loading fonts and images. The beta page was reviewed on desktop and mobile for readable steps, button placement, spacing, and clipping. Existing captures include the refreshed home call to action, metric favorite editor, widget illustrations, and calendar explanation. Focused section captures suppress the sticky site header and unfocused skip link so they do not cover the reviewed section; full-page and hero captures retain the navigation.
 
-| Page or section | Desktop | Mobile |
-| --- | --- | --- |
-| Home | [Full page](home-desktop.png) | [Full page](home-mobile.png) |
-| App overview | [Full page](app-desktop.png) | [Full page](app-mobile.png) |
-| Insights | [Full page](insights-desktop.png) | [Full page](insights-mobile.png) |
-| Join the beta | [Full page](beta-desktop.png) | [Full page](beta-mobile.png) |
-| Privacy | [Full page](privacy-desktop.png) | [Full page](privacy-mobile.png) |
-| Named prices | [Section](favorite-prices-desktop.png) | [Section](favorite-prices-mobile.png) |
+| Page or section        | Desktop                                       | Mobile                                       |
+| ---------------------- | --------------------------------------------- | -------------------------------------------- |
+| Home                   | [Full page](home-desktop.png)                 | [Full page](home-mobile.png)                 |
+| App overview           | [Full page](app-desktop.png)                  | [Full page](app-mobile.png)                  |
+| Insights               | [Full page](insights-desktop.png)             | [Full page](insights-mobile.png)             |
+| Join the beta          | [Full page](beta-desktop.png)                 | [Full page](beta-mobile.png)                 |
+| Privacy                | [Full page](privacy-desktop.png)              | [Full page](privacy-mobile.png)              |
+| Named prices           | [Section](favorite-prices-desktop.png)        | [Section](favorite-prices-mobile.png)        |
 | Metric favorite editor | [Gallery](favorite-editor-metric-desktop.png) | [Gallery](favorite-editor-metric-mobile.png) |
-| Widgets | [Section](widgets-desktop.png) | [Section](widgets-mobile.png) |
-| Calendar periods | [Section](calendar-periods-desktop.png) | [Section](calendar-periods-mobile.png) |
+| Widgets                | [Section](widgets-desktop.png)                | [Section](widgets-mobile.png)                |
+| Calendar periods       | [Section](calendar-periods-desktop.png)       | [Section](calendar-periods-mobile.png)       |
 
 The [desktop hero](home-hero.png) and [mobile hero](mobile-hero.png) show the initial viewport. Review captures are not included in the published site. Chromium uses device emulation; physical phones, Safari, and Firefox were not tested.
 

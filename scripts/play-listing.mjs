@@ -17,11 +17,11 @@ export async function verifyPublicPlayListing(playUrl, request = fetch) {
     );
   }
   if (
-    !/<title[^>]*>[^<]*BarTally/i.test(html) ||
+    !/<title[^>]*>[^<]*\b(?:PourTally|BarTally)\b/i.test(html) ||
     !html.includes("com.billcorp.bartally")
   ) {
     throw new Error(
-      "The Play URL responded but did not identify the public BarTally app listing. Check that the production listing is live before publishing.",
+      "The Play URL responded but did not identify the public PourTally app listing. Check that the production listing is live before publishing.",
     );
   }
 }

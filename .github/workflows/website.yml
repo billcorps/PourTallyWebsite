@@ -18,12 +18,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
-      VITE_BASE_PATH: ${{ vars.VITE_BASE_PATH || '/BarTallyWebsite/' }}
-      VITE_SITE_URL: ${{ vars.VITE_SITE_URL || 'https://billcorps.github.io/BarTallyWebsite/' }}
+      VITE_BASE_PATH: ${{ vars.VITE_BASE_PATH || '/PourTallyWebsite/' }}
+      VITE_SITE_URL: ${{ vars.VITE_SITE_URL || 'https://billcorps.github.io/PourTallyWebsite/' }}
       VITE_DEVELOPER_NAME: ${{ vars.VITE_DEVELOPER_NAME }}
       VITE_SUPPORT_EMAIL: ${{ vars.VITE_SUPPORT_EMAIL }}
-      # Keep the coming-soon state until the listing is explicitly marked live.
-      VITE_PLAY_STORE_URL: ${{ vars.VITE_PLAY_STORE_LIVE == 'true' && vars.VITE_PLAY_STORE_URL || '' }}
+      # An empty override uses the public listing in site-defaults.json.
+      VITE_PLAY_STORE_URL: ${{ vars.VITE_PLAY_STORE_URL }}
       VITE_SOCIAL_IMAGE: ${{ vars.VITE_SOCIAL_IMAGE }}
     steps:
       - uses: actions/checkout@v6

@@ -1,13 +1,13 @@
 import defaults from "../site-defaults.json";
 
 export const siteConfig = {
-  beta: defaults.beta,
   developerName:
     (import.meta.env.VITE_DEVELOPER_NAME ?? "").trim() ||
     defaults.developerName,
   supportEmail:
     (import.meta.env.VITE_SUPPORT_EMAIL ?? "").trim() || defaults.supportEmail,
-  playStoreUrl: (import.meta.env.VITE_PLAY_STORE_URL ?? "").trim(),
+  playStoreUrl:
+    (import.meta.env.VITE_PLAY_STORE_URL ?? "").trim() || defaults.playStoreUrl,
 };
 
 export const asset = (path: string) =>

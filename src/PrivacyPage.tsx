@@ -35,13 +35,14 @@ export function PrivacyPage({
         <p className="eyebrow">Your information, explained</p>
         <h1>Privacy policy.</h1>
         <p>
-          Your drink journal and saved places are stored on your device.
-          Advertising, purchases, Google AI services, and website hosting
-          involve other services. Here is what each part uses, and the choices
-          you have.
+          PourTally is the new name for BarTally. The name change does not
+          change how your data is handled. Your drink journal and saved places
+          are stored on your device. Advertising, purchases, Google AI services,
+          and website hosting involve other services. Here is what each part
+          uses, and the choices you have.
         </p>
         <p className="policy-date">
-          Last updated <time dateTime="2026-09-24">September 24, 2026</time>
+          Last updated <time dateTime="2026-10-10">October 10, 2026</time>
           {name ? <> · {name}</> : null}
         </p>
         {!contactReady && (
@@ -72,7 +73,7 @@ export function PrivacyPage({
           >
             <h2 id="privacy-data-title">01. Your app data</h2>
             <p>
-              BarTally keeps logged drinks, times, counts, serving sizes,
+              PourTally keeps logged drinks, times, counts, serving sizes,
               nutrition values, optional prices and currencies, notes, custom
               drinks, favorites with named prices and a saved default, and
               optional place names in a private database on your device. You
@@ -85,7 +86,8 @@ export function PrivacyPage({
               milliliters, alcohol units (grams, milliliters of pure alcohol, or
               US standard drinks), and widget periods and week starts, are
               stored locally. Catalog search, spending totals, and habit
-              calculations run on your device; none requires a BarTally account.
+              calculations run on your device; none requires a PourTally
+              account.
             </p>
             <p>
               Recorded timestamps are stored as UTC instants. History displays
@@ -94,10 +96,10 @@ export function PrivacyPage({
               zone used when they were created as additional metadata.
             </p>
             <p>
-              Prices are amounts you enter for drinks. BarTally does not connect
-              to financial accounts, import bank transactions, or collect
-              payment-card details for spending tracking. A missing price is
-              kept separate from a recorded zero price.
+              Prices are amounts you enter for drinks. PourTally does not
+              connect to financial accounts, import bank transactions, or
+              collect payment-card details for spending tracking. A missing
+              price is kept separate from a recorded zero price.
             </p>
             <p>
               Favorites can save a serving, a place, and multiple named prices.
@@ -116,7 +118,7 @@ export function PrivacyPage({
               02. What the developer receives
             </h2>
             <p>
-              BarTally has no account registration or developer analytics
+              PourTally has no account registration or developer analytics
               backend. The app does not send your drink entries, notes, or named
               places to the developer or attach them to advertising requests.
               Recorded drink prices and currencies are also kept out of
@@ -145,13 +147,13 @@ export function PrivacyPage({
           >
             <h2 id="privacy-local-ai-title">03. Optional local AI</h2>
             <p>
-              The next app update adds optional AI explanations in Metrics.
-              Calculated findings continue to work without AI. On{" "}
+              PourTally offers optional AI explanations in Metrics. Calculated
+              findings continue to work without AI. On{" "}
               <a href="https://developers.google.com/ml-kit/genai#prompt_api_device_support">
                 supported phones
               </a>
               , you can request an explanation using Google's shared Gemini Nano
-              model through ML Kit. BarTally gives the local model a bounded
+              model through ML Kit. PourTally gives the local model a bounded
               summary of calculated facts and data coverage, excluding raw drink
               names, notes, place names, coordinates, and entry identifiers. The
               prompt and generated text are processed on your device and are not
@@ -159,15 +161,22 @@ export function PrivacyPage({
               fallback or AI service charge.
             </p>
             <p>
-              Metrics may check model availability when opened. AI controls
-              appear only when Android reports that its shared model is already
-              available; inference starts only when you request an explanation.
-              BarTally does not download models or ask you to install one. If
-              the model is absent, still being prepared by Android, or
-              unsupported, Metrics shows calculated findings without AI controls
-              or setup messages. Android independently manages its shared model
-              and updates; availability depends on your phone and Google's AI
-              services.
+              Metrics may check model availability when opened. PourTally can
+              use Android's shared model when it is already ready. On supported
+              phones where a model is available to download, you can choose to
+              enable AI and confirm the download. Google AICore downloads and
+              manages the model; PourTally does not start a model download
+              automatically. Downloads require internet access, may be large,
+              and use device storage. Wi-Fi is recommended; mobile data charges
+              may apply. Downloading a model does not send your drink history to
+              Google or start an explanation. Inference starts only when you
+              request an explanation.
+            </p>
+            <p>
+              Calculated findings remain available without AI or a download.
+              Unsupported phones do not show AI controls. Android independently
+              manages its shared model and updates; availability depends on your
+              phone and Google's AI services.
             </p>
             <p>
               ML Kit and Android AI services may contact Google for models,
@@ -190,7 +199,7 @@ export function PrivacyPage({
               .
             </p>
             <p>
-              BarTally holds only the current explanation in app memory. It is
+              PourTally holds only the current explanation in app memory. It is
               not saved to the database or exported JSON backups. Changes to
               history, the selected period, or relevant calendar settings clear
               it. Leaving the active Metrics screen cancels an explanation in
@@ -210,7 +219,7 @@ export function PrivacyPage({
             <p>
               Add a place name when saving a favorite or logging a drink, then
               reuse it with other drinks. Place names are stored locally and
-              work offline. BarTally does not request location permission,
+              work offline. PourTally does not request location permission,
               access GPS, or use Google Maps or Google Places. It does not send
               your named places to a map or venue-search service.
             </p>
@@ -241,7 +250,7 @@ export function PrivacyPage({
               share IP addresses, device or advertising identifiers,
               interactions, and diagnostic information for advertising,
               measurement, and fraud prevention. An IP address can indicate
-              approximate location. BarTally requests non-personalized ads;
+              approximate location. PourTally requests non-personalized ads;
               these still involve data processing. Read{" "}
               <a href="https://policies.google.com/privacy">
                 Google’s Privacy Policy
@@ -261,7 +270,7 @@ export function PrivacyPage({
             </p>
             <p>
               An optional one-time purchase removes banner ads. All app features
-              remain available without purchasing. BarTally checks locally
+              remain available without purchasing. PourTally checks locally
               stored purchase ownership before requesting ads. While verified
               ownership is active, it does not request ads or automatically
               display ad consent prompts. It may refresh Google’s privacy-choice
@@ -278,8 +287,8 @@ export function PrivacyPage({
             <h2 id="privacy-purchases-title">06. Ad-removal purchases</h2>
             <p>
               Google Play processes payment using your Play account and payment
-              settings. BarTally does not receive or store your card details. It
-              asks Google Play for purchase ownership and stores a signed
+              settings. PourTally does not receive or store your card details.
+              It asks Google Play for purchase ownership and stores a signed
               purchase receipt in private device storage excluded from backup.
               This lets previously verified ad removal work offline. A later
               ownership check can update that status, including after a refund.
@@ -289,7 +298,7 @@ export function PrivacyPage({
               and choose{" "}
               <strong>More options → Remove ads → Restore purchase</strong>.
               Google’s payment records are governed by its policies and are not
-              deleted when you clear BarTally’s storage.
+              deleted when you clear PourTally’s storage.
             </p>
           </section>
 
@@ -338,8 +347,8 @@ export function PrivacyPage({
             <p>
               You choose the destination through Android’s file picker. Backup
               files contain readable personal data and are not encrypted by
-              BarTally. If you choose a cloud-storage provider, that provider
-              handles the file under its own settings and policies. BarTally
+              PourTally. If you choose a cloud-storage provider, that provider
+              handles the file under its own settings and policies. PourTally
               does not automatically upload or sync backups, and the developer
               does not receive them unless you choose to send a copy.
             </p>
@@ -354,18 +363,19 @@ export function PrivacyPage({
               location you chose when they are no longer needed.
             </p>
             <p>
-              Android may back up or transfer BarTally’s database according to
+              Android may back up or transfer PourTally’s database according to
               your device, operating system, and account settings. This can
               include drink history, recorded prices and currencies, custom
               drinks, favorites with named prices and saved places, and legacy
               location fields. The replaceable built-in catalog is excluded. The
               operating system and its backup provider handle these copies; the
-              BarTally developer does not receive them.
+              PourTally developer does not receive them.
             </p>
             <p>
               Manage backup preferences and retained backups through Android and
               your backup provider. App preferences, widget state, and the local
-              ad-removal receipt are excluded from BarTally’s configured backup.
+              ad-removal receipt are excluded from PourTally’s configured
+              backup.
             </p>
           </section>
 
@@ -377,9 +387,9 @@ export function PrivacyPage({
             <h2 id="privacy-deletion-title">09. Keeping and deleting data</h2>
             <p>
               Local data remains until you delete it, clear app storage, or
-              uninstall BarTally. Delete individual drink entries from History.
-              To erase all local BarTally data, open BarTally’s app information
-              in Android Settings and clear its storage.
+              uninstall PourTally. Delete individual drink entries from History.
+              To erase all local PourTally data, open PourTally’s app
+              information in Android Settings and clear its storage.
             </p>
             <p>
               Exported JSON files and system backups remain separately and may
@@ -401,7 +411,7 @@ export function PrivacyPage({
               This is a static website hosted on GitHub Pages. We do not add
               analytics scripts, advertising, sign-up forms, or account features
               to it. Images and fonts are served with the site. The website does
-              not access your BarTally drink journal or request your location.
+              not access your PourTally drink journal or request your location.
             </p>
             <p>
               GitHub receives requests needed to deliver these pages. GitHub’s{" "}
@@ -417,12 +427,9 @@ export function PrivacyPage({
               .
             </p>
             <p>
-              Beta enrollment happens on Google Groups and Google Play, using
-              your Google account. This website does not collect your email or
-              track your enrollment. Group membership and anything you post are
-              handled by Google Groups; avoid including personal drink history
-              in group posts. These external services have their own privacy
-              policies.
+              App downloads and reviews take place on Google Play and are
+              handled under Google’s privacy policies. This website does not
+              collect your Google account information.
             </p>
           </section>
 
@@ -433,7 +440,7 @@ export function PrivacyPage({
           >
             <h2 id="privacy-audience-title">11. Audience and estimates</h2>
             <p>
-              BarTally is intended for adults tracking their own drinks.
+              PourTally is intended for adults tracking their own drinks.
               Nutrition and alcohol figures may be estimates; they are not
               measurements of the drink served to you.
             </p>
@@ -464,7 +471,7 @@ export function PrivacyPage({
             ) : listing ? (
               <p>
                 For privacy questions or requests, open the{" "}
-                <a href={listing}>BarTally listing</a> in the Google Play Store
+                <a href={listing}>PourTally listing</a> in the Google Play Store
                 and select <strong>App support</strong> to find the developer's
                 contact details. Please use that private contact route for
                 personal information.
@@ -477,23 +484,11 @@ export function PrivacyPage({
               </p>
             )}
             <p>
-              You can also share general feedback on Google Play.{" "}
-              {listing ? (
-                <>
-                  Open <a href={listing}>BarTally on Google Play</a> and leave a
-                  review describing what happened. Include your app version and
-                  Android version to help reproduce the problem.
-                </>
-              ) : (
-                <>
-                  During the closed test, enrolled testers can open BarTally in
-                  the Play Store and send private testing feedback. Include what
-                  happened, your app version, and Android version. General
-                  questions can also be posted in the tester group. After the
-                  public release, reviews will be available on Google Play.
-                </>
-              )}{" "}
-              Reviews are public, so please leave out personal information.
+              You can also share general feedback on Google Play. Open{" "}
+              <a href={listing}>PourTally on Google Play</a> and leave a review
+              describing what happened. Include your app version and Android
+              version to help reproduce the problem. Reviews are public, so
+              please leave out personal information.
             </p>
           </section>
         </div>

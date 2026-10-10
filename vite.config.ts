@@ -4,10 +4,10 @@ import react from "@vitejs/plugin-react";
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   const base =
-    process.env.VITE_BASE_PATH || env.VITE_BASE_PATH || "/BarTallyWebsite/";
+    process.env.VITE_BASE_PATH || env.VITE_BASE_PATH || "/PourTallyWebsite/";
   if (!/^\/(?:[^/?#]+\/)*$/.test(base) || base.includes("..")) {
     throw new Error(
-      "VITE_BASE_PATH must be an absolute path with a trailing slash, such as /BarTallyWebsite/ or /.",
+      "VITE_BASE_PATH must be an absolute path with a trailing slash, such as /PourTallyWebsite/ or /.",
     );
   }
 

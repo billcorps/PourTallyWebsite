@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { asset, href, siteConfig } from "./config";
 import { PrivacyPage } from "./PrivacyPage";
-import { BetaPage } from "./BetaPage";
 import type { PageId } from "./routes";
 
 type IconName =
@@ -118,7 +117,7 @@ function Brand({ footer = false }: { footer?: boolean }) {
     <a
       className={`brand ${footer ? "brand-footer" : ""}`}
       href={href("/")}
-      aria-label="BarTally home"
+      aria-label="PourTally home"
     >
       <img
         className="brand-icon"
@@ -129,7 +128,7 @@ function Brand({ footer = false }: { footer?: boolean }) {
         aria-hidden="true"
       />
       <span>
-        BarTally<span className="brand-dot">.</span>
+        PourTally<span className="brand-dot">.</span>
       </span>
     </a>
   );
@@ -183,14 +182,8 @@ function Header({ page }: { page: PageId }) {
               {label}
             </a>
           ))}
-          <a
-            className="nav-cta"
-            href={siteConfig.playStoreUrl || href("/beta/")}
-            aria-current={
-              page === "beta" && !siteConfig.playStoreUrl ? "page" : undefined
-            }
-          >
-            {siteConfig.playStoreUrl ? "Get BarTally" : "Join the beta"}
+          <a className="nav-cta" href={siteConfig.playStoreUrl}>
+            Get PourTally
             <Icon name="diagonal" size={17} />
           </a>
         </nav>
@@ -212,10 +205,10 @@ function Footer() {
           </p>
         </div>
         <div className="footer-links">
-          <span className="eyebrow">EXPLORE BARTALLY</span>
+          <span className="eyebrow">EXPLORE POURTALLY</span>
           <a href={href("/app/")}>Meet the app</a>
           <a href={href("/insights/")}>Explore the insights</a>
-          <a href={href("/beta/")}>Join the beta</a>
+          <a href={siteConfig.playStoreUrl}>Get it on Google Play</a>
           <a href={href("/privacy/")}>Privacy policy</a>
         </div>
         <div className="footer-note">
@@ -232,20 +225,13 @@ function Footer() {
               Get in touch <Icon name="diagonal" size={16} />
             </a>
           )}
-          <a
-            className="text-link"
-            href={
-              siteConfig.supportEmail || siteConfig.playStoreUrl
-                ? href("/privacy/#privacy-contact")
-                : href("/beta/#feedback")
-            }
-          >
+          <a className="text-link" href={href("/privacy/#privacy-contact")}>
             Report a bug
           </a>
         </div>
       </div>
       <div className="footer-bottom section-shell">
-        <span>© 2026 {siteConfig.developerName || "BarTally"}</span>
+        <span>© 2026 {siteConfig.developerName || "PourTally"}</span>
         <span>Drink and spending tracking for adults.</span>
         <a href={href("/privacy/#privacy-website")}>About this website</a>
       </div>
@@ -271,7 +257,7 @@ function ButtonLink({
 }
 
 function Availability({ light = false }: { light?: boolean }) {
-  return siteConfig.playStoreUrl ? (
+  return (
     <a
       className={`availability ${light ? "availability-light" : ""}`}
       href={siteConfig.playStoreUrl}
@@ -279,10 +265,6 @@ function Availability({ light = false }: { light?: boolean }) {
       <Icon name="android" size={18} /> View on Google Play{" "}
       <Icon name="diagonal" size={15} />
     </a>
-  ) : (
-    <span className={`availability ${light ? "availability-light" : ""}`}>
-      <span className="status-dot" /> Android beta · Android 11+
-    </span>
   );
 }
 
@@ -351,9 +333,7 @@ function ClosingNote() {
           <p>Cutting back or keeping track. Start with the numbers.</p>
         </div>
         <div className="closing-actions">
-          <ButtonLink to={siteConfig.playStoreUrl || href("/beta/")}>
-            {siteConfig.playStoreUrl ? "Get BarTally" : "Join the beta"}
-          </ButtonLink>
+          <ButtonLink to={siteConfig.playStoreUrl}>Get PourTally</ButtonLink>
           <Availability />
           <span className="small-print">
             All features free. No subscription. Optional ad removal.
@@ -384,17 +364,15 @@ function HomePage() {
           </h1>
           <p>
             See how much you drink, what you spend, and when it adds up. Whether
-            you’re cutting back or just keeping track, BarTally puts the numbers
-            in one place.
+            you’re cutting back or just keeping track, PourTally puts the
+            numbers in one place.
           </p>
           <div className="hero-actions">
-            <ButtonLink to={siteConfig.playStoreUrl || href("/beta/")}>
-              {siteConfig.playStoreUrl ? "Get BarTally" : "Join the beta"}
-            </ButtonLink>
+            <ButtonLink to={siteConfig.playStoreUrl}>Get PourTally</ButtonLink>
             <Availability />
           </div>
           <a href="#overview" className="scroll-cue">
-            <span>↓</span> See what BarTally tracks
+            <span>↓</span> See what PourTally tracks
           </a>
         </div>
         <div className="hero-stage">
@@ -402,12 +380,12 @@ function HomePage() {
           <span className="stage-caption">YOUR TOTALS. YOUR DATA.</span>
           <Phone
             image="us/05-metrics.png"
-            alt="BarTally metrics showing calendar period choices, a Sunday or Monday week start, drink totals, and recorded spending."
+            alt="PourTally metrics showing calendar period choices, a Sunday or Monday week start, drink totals, and recorded spending."
             className="hero-phone-back"
           />
           <Phone
             image="us/01-home.png"
-            alt="BarTally favorites filtered by pub, with US fluid-ounce servings, named prices, and quick logging."
+            alt="PourTally favorites filtered by pub, with US fluid-ounce servings, named prices, and quick logging."
             className="hero-phone-front"
             eager
           />
@@ -512,7 +490,7 @@ function HomePage() {
               <em>Clear totals.</em>
             </h2>
             <p>
-              Record the size of your drink and its price. BarTally totals what
+              Record the size of your drink and its price. PourTally totals what
               you’ve logged and shows what’s missing. Unknown calories or costs
               don’t become zero, and different currencies stay separate.
             </p>
@@ -728,12 +706,12 @@ function AppPreview() {
 
 const questions = [
   [
-    "Is BarTally free?",
+    "Is PourTally free?",
     "Yes. Every feature is free: logging, spending, insights, saved places, serving preferences, and home-screen widgets. An optional one-time purchase removes banner ads. There is no subscription.",
   ],
   [
     "Does it work without an internet connection?",
-    "Logging, the drink catalog, saved places, and calculated insights work offline. Ads, Google Play purchase checks, and Google AI services' independent updates, configuration and diagnostics can use internet services.",
+    "Logging, the drink catalog, saved places, and calculated insights work offline. Optional AI explanations run on your phone once its model is ready. Downloading that model, ads, Google Play purchase checks, and Google AI services' updates, configuration and diagnostics can use internet services.",
   ],
   [
     "Can I use milliliters instead of ounces?",
@@ -741,7 +719,7 @@ const questions = [
   ],
   [
     "How does spending tracking work?",
-    "Enter the price per drink when you log it, or add it later in History. The price is multiplied by the entry’s drink count. Leave it blank if you don’t know, or enter 0 for a free drink. USD is the default; you can choose another currency. Totals and averages stay separate for each currency, with no exchange-rate conversion. BarTally does not connect to bank accounts or estimate missing prices.",
+    "Enter the price per drink when you log it, or add it later in History. The price is multiplied by the entry’s drink count. Leave it blank if you don’t know, or enter 0 for a free drink. USD is the default; you can choose another currency. Totals and averages stay separate for each currency, with no exchange-rate conversion. PourTally does not connect to bank accounts or estimate missing prices.",
   ],
   [
     "What if my drink is not in the catalog?",
@@ -765,11 +743,11 @@ const questions = [
   ],
   [
     "Can I back up my history or move it to another phone?",
-    "Yes. Open More options → Backup & restore to export a JSON backup using Android’s file picker. It includes history, custom drinks, favorites with their prices and places, and your saved places. Choose a backup to preview what will be restored, then select Restore backup. Missing records are added and existing records are kept when IDs match, except that untouched starter favorites can be restored from the backup. Restoring the same file again does not duplicate records. Settings, widgets, the built-in catalog, and ad-removal receipts are not included. Keep the file somewhere private: it contains readable personal data and is not encrypted by BarTally.",
+    "Yes. Open More options → Backup & restore to export a JSON backup using Android’s file picker. It includes history, custom drinks, favorites with their prices and places, and your saved places. Choose a backup to preview what will be restored, then select Restore backup. Missing records are added and existing records are kept when IDs match, except that untouched starter favorites can be restored from the backup. Restoring the same file again does not duplicate records. Settings, widgets, the built-in catalog, and ad-removal receipts are not included. Keep the file somewhere private: it contains readable personal data and is not encrypted by PourTally.",
   ],
   [
     "How do I change a widget?",
-    "Long-press the widget and choose the launcher’s edit or reconfigure option where supported. Otherwise, remove it and add it again to choose its settings. Edit a favorite in BarTally to change the serving, default price, or place used by its quick-log widgets.",
+    "Long-press the widget and choose the launcher’s edit or reconfigure option where supported. Otherwise, remove it and add it again to choose its settings. Edit a favorite in PourTally to change the serving, default price, or place used by its quick-log widgets.",
   ],
   [
     "Can my totals follow the calendar week?",
@@ -777,7 +755,7 @@ const questions = [
   ],
   [
     "Do I have to share my location?",
-    "No. BarTally does not request location permission or use GPS. Places are optional names you enter when saving or editing a favorite and reuse from your own saved list. They work offline.",
+    "No. PourTally does not request location permission or use GPS. Places are optional names you enter when saving or editing a favorite and reuse from your own saved list. They work offline.",
   ],
   [
     "Are the calorie and alcohol values exact?",
@@ -1042,7 +1020,7 @@ function AppPage() {
           </ul>
           <p className="small-print">
             Backups contain readable personal data. Store them somewhere
-            private. There is no automatic BarTally cloud sync; settings,
+            private. There is no automatic PourTally cloud sync; settings,
             widgets, and ad-removal purchases are separate.
           </p>
         </div>
@@ -1216,7 +1194,7 @@ function InsightsPage() {
           Period insights highlights changes in your recorded totals. Open a
           finding to see the supporting entries and what the comparison
           includes. Calculated findings work offline on every phone that runs
-          BarTally, with no AI model needed.
+          PourTally, with no AI model needed.
         </p>
         <div className="insight-grid">
           {[
@@ -1281,8 +1259,8 @@ function InsightsPage() {
             </li>
           </ul>
           <p className="small-print">
-            Prices are optional and entered by you. BarTally does not connect to
-            bank accounts or fill in missing costs.
+            Prices are optional and entered by you. PourTally does not connect
+            to bank accounts or fill in missing costs.
           </p>
         </div>
         <div
@@ -1329,7 +1307,7 @@ function InsightsPage() {
               <em>Visible gaps.</em>
             </h2>
             <p>
-              Nutrition totals should tell you what’s included. BarTally
+              Nutrition totals should tell you what’s included. PourTally
               separates published, estimated, entered, and unknown values
               instead of quietly filling in the blanks.
             </p>
@@ -1414,17 +1392,19 @@ function InsightsPage() {
         <p>
           A journal is a record of your entries, not a complete record of
           consumption. A day without a log isn’t necessarily a day without
-          alcohol. BarTally does not calculate blood alcohol concentration or
+          alcohol. PourTally does not calculate blood alcohol concentration or
           determine whether you can drive.
         </p>
       </aside>
       <p className="section-shell">
         <small>
-          Optional local AI explanations appear only on{" "}
+          Optional local AI explanations are available on{" "}
           <a href="https://developers.google.com/ml-kit/genai#prompt_api_device_support">
             supported phones
           </a>{" "}
-          with an already available model. BarTally never downloads models.{" "}
+          with a ready model, or after a model download you choose to start.
+          Wi-Fi is recommended; the download may be large. Calculated insights
+          remain available without AI.{" "}
           <a href={href("/privacy/#privacy-local-ai")}>Privacy details</a>.
         </small>
       </p>
@@ -1441,7 +1421,7 @@ function NotFoundPage() {
         Page <em>not found.</em>
       </h1>
       <p>This link doesn’t match a page. Open the home page to continue.</p>
-      <ButtonLink to={href("/")}>Back to BarTally</ButtonLink>
+      <ButtonLink to={href("/")}>Back to PourTally</ButtonLink>
     </section>
   );
 }
@@ -1460,8 +1440,6 @@ export function App({ page }: { page: PageId }) {
           <AppPage />
         ) : page === "insights" ? (
           <InsightsPage />
-        ) : page === "beta" ? (
-          <BetaPage />
         ) : page === "privacy" ? (
           <PrivacyPage
             developerName={siteConfig.developerName}
