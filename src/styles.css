@@ -358,16 +358,6 @@ section[id],
   border: 1px solid var(--accent-outline);
   border-radius: 50%;
 }
-.stage-caption {
-  position: absolute;
-  left: -5px;
-  top: 23px;
-  font-size: 9px;
-  letter-spacing: 0.2em;
-  transform: rotate(-90deg) translateX(-100%);
-  transform-origin: top left;
-  color: var(--muted);
-}
 .phone {
   padding: 7px;
   background: var(--surface-dark);
@@ -1754,9 +1744,6 @@ section[id],
   }
   .hero-stage > .demo-caption {
     bottom: 0;
-  }
-  .stage-caption {
-    display: none;
   }
   .perspective-inner {
     gap: 54px;

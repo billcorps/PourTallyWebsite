@@ -377,7 +377,6 @@ function HomePage() {
         </div>
         <div className="hero-stage">
           <div className="hero-orbit" aria-hidden="true" />
-          <span className="stage-caption">YOUR TOTALS. YOUR DATA.</span>
           <Phone
             image="us/05-metrics.png"
             alt="PourTally metrics showing calendar period choices, a Sunday or Monday week start, drink totals, and recorded spending."
